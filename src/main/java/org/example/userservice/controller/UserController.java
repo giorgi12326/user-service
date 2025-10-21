@@ -36,6 +36,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<FullUserDTO> getUserByUsername(@RequestParam String username) {
+        System.out.println("called");
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 }
