@@ -1,0 +1,17 @@
+org\example\userservice\mapper\UserMapper.class
+org\example\userservice\security\JwtAuthenticationFilter.class
+org\example\userservice\service\UserService.class
+org\example\userservice\dto\ErrorResponseDTO$ErrorResponseDTOBuilder.class
+org\example\userservice\entity\Role.class
+org\example\userservice\dto\ErrorResponseDTO.class
+org\example\userservice\dto\UserDTO.class
+org\example\userservice\dto\FullUserDTO.class
+org\example\userservice\entity\User$UserBuilder.class
+org\example\userservice\security\SecurityConfig.class
+org\example\userservice\controller\UserController.class
+org\example\userservice\security\JwtUtil.class
+org\example\userservice\entity\User.class
+org\example\userservice\mapper\UserMapperImpl.class
+org\example\userservice\repository\UserRepository.class
+org\example\userservice\dto\TokenDTO.class
+org\example\userservice\UserServiceApplication.class
