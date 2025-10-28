@@ -11,9 +11,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Package app
-        run: mvn clean package -DskipTests
-
       - name: Build Docker image
         run: docker build -t user-service-image:latest .
 
