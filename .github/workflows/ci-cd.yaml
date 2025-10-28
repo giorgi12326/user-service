@@ -15,4 +15,4 @@ jobs:
         run: docker build -t user-service-image:latest .
 
       - name: Deploy to Minikube
-        run: kubectl apply -f k8s/
+        run: kubectl apply -f user-config/
