@@ -39,4 +39,9 @@ public class UserController {
         System.out.println("called");
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "ci-CD WORKED";
+    }
 }
