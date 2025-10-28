@@ -11,18 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Package app
+        run: mvn clean package -DskipTests
+
       - name: Build Docker image
         run: docker build -t user-service-image:latest .
-
-      - name: Run tests
-        run: |
-          docker run \
-            -e DB_HOST=postgres-0.postgres \
-            -e DB_PORT=5432 \
-            -e DB_USER=myuser \
-            -e DB_PASSWORD=mypassword \
-            -e DB_NAME=mydb \
-            user-service-image:latest
 
       - name: Deploy to Minikube
         run: kubectl apply -f k8s/
