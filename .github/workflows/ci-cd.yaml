@@ -1,0 +1,18 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t myapp .
+      - name: Run tests
+        run: docker run myapp test
+      - name: Deploy to Minikube
+        run: |
+          kubectl apply -f k8s/
