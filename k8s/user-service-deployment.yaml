@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: user-service-image:latest
+          image: user-service-image:COMMIT_HASH
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
