@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline -B
 COPY src ./src
 
 # 3️⃣ Build JAR (won’t redownload deps if pom.xml unchanged)
-RUN mvn clean package -DskipTests
+RUN mvn -o clean package -DskipTests
 
 # Stage 2: Run app
 FROM eclipse-temurin:17-jdk-jammy

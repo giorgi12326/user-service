@@ -42,6 +42,6 @@ public class UserController {
 
     @GetMapping("/test")
     public String test() {
-        return "ci-CD WORKED";
+        return "ci-CD WORKED?";
     }
 }
