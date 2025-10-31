@@ -40,8 +40,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
-    @GetMapping("/test")
+    @GetMapping("/axlesh")
     public String test() {
-        return "ci-CD WORKED?";
+        return "ci-CD WORKED! first try";
     }
 }
