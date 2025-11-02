@@ -50,6 +50,7 @@ public class UserController {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
+
     @PostMapping("/publish")
     public String publish(@RequestParam String message) {
         kafkaTemplate.send("test-topic", message);
