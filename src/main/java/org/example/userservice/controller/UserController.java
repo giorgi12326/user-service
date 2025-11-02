@@ -6,8 +6,10 @@ import org.example.userservice.dto.TokenDTO;
 import org.example.userservice.dto.UserDTO;
 import org.example.userservice.security.JwtUtil;
 import org.example.userservice.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,5 +45,14 @@ public class UserController {
     @GetMapping("/axlesh")
     public String test() {
         return "ci-CD WORKED! first try";
+    }
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    @PostMapping("/publish")
+    public String publish(@RequestParam String message) {
+        kafkaTemplate.send("test-topic", message);
+        return "Message sent: " + message;
     }
 }
