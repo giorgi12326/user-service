@@ -22,6 +22,8 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private KafkaTemplate<String, String> kafkaTemplate;
+
 
     @PostMapping("/login")
     public ResponseEntity<TokenDTO> login(@RequestBody UserDTO user) {
@@ -47,13 +49,9 @@ public class UserController {
         return "ci-CD WORKED! first try";
     }
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
-
-
     @PostMapping("/publish")
     public String publish(@RequestParam String message) {
         kafkaTemplate.send("test-topic", message);
-        return "Message sent: " + message;
+        return "Message: \"" + message + "\" send to topic: test-topic";
     }
 }
