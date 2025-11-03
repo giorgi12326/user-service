@@ -44,7 +44,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
-    @GetMapping("/axlesh")
+    @GetMapping("/test")
     public String test() {
         return "ci-CD WORKED! first try";
     }
