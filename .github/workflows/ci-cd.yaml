@@ -1,8 +1,8 @@
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches: [ exercise3-UserService ]
+  pull_request:
+    branches: [ deployment ]
 
 jobs:
   build:
