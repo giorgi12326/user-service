@@ -6,7 +6,6 @@ import org.example.userservice.dto.TokenDTO;
 import org.example.userservice.dto.UserDTO;
 import org.example.userservice.security.JwtUtil;
 import org.example.userservice.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
