@@ -37,4 +37,8 @@ public class UserService implements UserDetailsService {
     public FullUserDTO getUserByUsername(String username) {
         return userMapper.toFullUserDTO(userRepository.findByUsername(username));
     }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }
