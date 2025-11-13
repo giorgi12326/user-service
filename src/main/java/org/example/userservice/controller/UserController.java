@@ -1,5 +1,6 @@
 package org.example.userservice.controller;
 
+import jdk.jfr.EventType;
 import lombok.AllArgsConstructor;
 import org.example.userservice.dto.FullUserDTO;
 import org.example.userservice.dto.TokenDTO;
