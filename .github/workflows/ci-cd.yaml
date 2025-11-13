@@ -16,13 +16,18 @@ jobs:
           COMMIT_HASH=$(git rev-parse --short HEAD)
           docker build -t user-service-image:$COMMIT_HASH .
           docker tag user-service-image:$COMMIT_HASH user-service-image:latest
-    
 
-      - name: Install kubectl
+      - name: Install kubectl if not installed
+        shell: bash
         run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x kubectl
-          sudo mv kubectl /usr/local/bin/
+          if ! command -v kubectl &> /dev/null; then
+            echo "kubectl not found, installing..."
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x kubectl
+            sudo mv kubectl /usr/local/bin/
+          else
+            echo "kubectl already installed, skipping"
+          fi
 
       - name: Deploy to Minikube
         run: |

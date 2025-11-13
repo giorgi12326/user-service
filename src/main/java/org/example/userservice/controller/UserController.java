@@ -1,5 +1,6 @@
 package org.example.userservice.controller;
 
+import jdk.jfr.EventType;
 import lombok.AllArgsConstructor;
 import org.example.userservice.dto.FullUserDTO;
 import org.example.userservice.dto.TokenDTO;
@@ -41,6 +42,10 @@ public class UserController {
     public ResponseEntity<FullUserDTO> getUserByUsername(@RequestParam String username) {
         System.out.println("called");
         return ResponseEntity.ok(userService.getUserByUsername(username));
+    }
+    @GetMapping("/{username}/exists")
+    public boolean userExists(@PathVariable String username ) {
+        return userService.existsByUsername(username);
     }
 
     @GetMapping("/test")
