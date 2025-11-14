@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.example.userservice.dto.Event;
 import org.example.userservice.dto.EventType;
 import org.example.userservice.dto.FullUserDTO;
-import org.example.userservice.dto.UserDTO;
 import org.example.userservice.entity.User;
 import org.example.userservice.mapper.UserMapper;
 import org.example.userservice.repository.UserRepository;
@@ -13,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -45,8 +43,8 @@ public class UserService implements UserDetailsService {
         return userMapper.toFullUserDTO(userRepository.findByUsername(username));
     }
 
-    public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+    public boolean existsById(Long id) {
+        return userRepository.existsById(id);
     }
 
     public void deleteUserByUsername(String username) {

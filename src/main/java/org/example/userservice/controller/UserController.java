@@ -1,7 +1,6 @@
 package org.example.userservice.controller;
 
 import jakarta.validation.Valid;
-import jdk.jfr.EventType;
 import lombok.AllArgsConstructor;
 import org.example.userservice.dto.FullUserDTO;
 import org.example.userservice.dto.TokenDTO;
@@ -51,11 +50,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/{username}/exists")
-    public boolean userExists(@PathVariable String username ) {
-        return userService.existsByUsername(username);
+    @GetMapping("/{id}/exists")
+    public boolean userExists(@PathVariable Long id) {
+        return userService.existsById(id);
     }
-
 
     @PostMapping("/publish")
     public String publish(@RequestParam String message) {
