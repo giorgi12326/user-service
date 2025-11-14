@@ -1,5 +1,6 @@
 package org.example.userservice.controller;
 
+import jakarta.validation.Valid;
 import jdk.jfr.EventType;
 import lombok.AllArgsConstructor;
 import org.example.userservice.dto.FullUserDTO;
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<FullUserDTO> registerUser(@RequestBody FullUserDTO user) {
+    public ResponseEntity<FullUserDTO> registerUser(@RequestBody @Valid FullUserDTO user) {
         FullUserDTO fullUserDTO = userService.registerUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(fullUserDTO);
     }
@@ -43,15 +44,18 @@ public class UserController {
         System.out.println("called");
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteUserByUsername(@PathVariable String username){
+        userService.deleteUserByUsername(username);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @GetMapping("/{username}/exists")
     public boolean userExists(@PathVariable String username ) {
         return userService.existsByUsername(username);
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "ci-CD WORKED! first try";
-    }
 
     @PostMapping("/publish")
     public String publish(@RequestParam String message) {
