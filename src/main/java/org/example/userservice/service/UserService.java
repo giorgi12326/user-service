@@ -29,14 +29,14 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public FullUserDTO registerUser(FullUserDTO user) {
-        User savedUser = User.builder()
-                .username(user.getUsername())
-                .password(passwordEncoder.encode(user.getPassword()))
-                .role(user.getRole())
+    public FullUserDTO registerUser(FullUserDTO userDTO) {
+        User user = User.builder()
+                .username(userDTO.getUsername())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
+                .role(userDTO.getRole())
                 .build();
-        userRepository.save(savedUser);
-        return user;
+        User save = userRepository.save(user);
+        return userMapper.toFullUserDTO(save);
     }
 
     public FullUserDTO getUserByUsername(String username) {
