@@ -5,6 +5,7 @@ import org.example.userservice.dto.Event;
 import org.example.userservice.dto.EventType;
 import org.example.userservice.dto.FullUserDTO;
 import org.example.userservice.entity.User;
+import org.example.userservice.exception.ResourceNotFoundException;
 import org.example.userservice.mapper.UserMapper;
 import org.example.userservice.repository.UserRepository;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -26,7 +27,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with username " + username +" not found"));
     }
 
     public FullUserDTO registerUser(FullUserDTO userDTO) {
@@ -40,7 +41,8 @@ public class UserService implements UserDetailsService {
     }
 
     public FullUserDTO getUserByUsername(String username) {
-        return userMapper.toFullUserDTO(userRepository.findByUsername(username));
+        User user = userRepository.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException("User with username " + username +" not found"));
+        return userMapper.toFullUserDTO(user);
     }
 
     public boolean existsById(Long id) {

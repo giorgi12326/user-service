@@ -21,4 +21,13 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ErrorResponseDTO handleException(ResourceNotFoundException exception) {
+        return ErrorResponseDTO.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 }
