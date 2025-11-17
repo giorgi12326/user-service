@@ -24,7 +24,6 @@ public class UserController {
     private final JwtUtil jwtUtil;
     private KafkaTemplate<String, String> kafkaTemplate;
 
-
     @PostMapping("/login")
     public ResponseEntity<TokenDTO> login(@RequestBody UserDTO user) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
