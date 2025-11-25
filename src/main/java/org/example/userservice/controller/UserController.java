@@ -1,6 +1,6 @@
 package org.example.userservice.controller;
 
-import jdk.jfr.EventType;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.userservice.dto.FullUserDTO;
 import org.example.userservice.dto.TokenDTO;
@@ -24,7 +24,6 @@ public class UserController {
     private final JwtUtil jwtUtil;
     private KafkaTemplate<String, String> kafkaTemplate;
 
-
     @PostMapping("/login")
     public ResponseEntity<TokenDTO> login(@RequestBody UserDTO user) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
@@ -33,29 +32,25 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<FullUserDTO> registerUser(@RequestBody FullUserDTO user) {
+    public ResponseEntity<FullUserDTO> registerUser(@RequestBody @Valid FullUserDTO user) {
         FullUserDTO fullUserDTO = userService.registerUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(fullUserDTO);
     }
 
     @GetMapping
     public ResponseEntity<FullUserDTO> getUserByUsername(@RequestParam String username) {
-        System.out.println("called");
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
-    @GetMapping("/{username}/exists")
-    public boolean userExists(@PathVariable String username ) {
-        return userService.existsByUsername(username);
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteUserByUsername(@PathVariable String username){
+        userService.deleteUserByUsername(username);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "ci-CD WORKED! first try";
+    @GetMapping("/{id}/exists")
+    public boolean userExists(@PathVariable Long id) {
+        return userService.existsById(id);
     }
 
-    @PostMapping("/publish")
-    public String publish(@RequestParam String message) {
-        kafkaTemplate.send("test-topic", message);
-        return "Message: \"" + message + "\" -- send to topic: test-topic";
-    }
 }

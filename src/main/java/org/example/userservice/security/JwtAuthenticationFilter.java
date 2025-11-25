@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.example.userservice.entity.User;
+import org.example.userservice.exception.ResourceNotFoundException;
 import org.example.userservice.repository.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String token = authorization.substring(7);
 
                 String username = jwtUtil.getUsernameFromToken(token);
-                User user = userRepository.findByUsername(username);
+                User user = userRepository.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("User not found"));
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
