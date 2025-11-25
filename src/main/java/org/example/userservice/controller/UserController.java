@@ -2,6 +2,7 @@ package org.example.userservice.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.userservice.dto.FullUserDTO;
 import org.example.userservice.dto.TokenDTO;
 import org.example.userservice.dto.UserDTO;
@@ -16,7 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class UserController {
     private final UserService userService;
