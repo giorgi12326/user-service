@@ -1,6 +1,7 @@
 package org.example.userservice.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.userservice.dto.Event;
 import org.example.userservice.dto.EventType;
 import org.example.userservice.dto.FullUserDTO;
@@ -8,12 +9,14 @@ import org.example.userservice.entity.User;
 import org.example.userservice.exception.ResourceNotFoundException;
 import org.example.userservice.mapper.UserMapper;
 import org.example.userservice.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
@@ -45,13 +48,15 @@ public class UserService implements UserDetailsService {
         return userMapper.toFullUserDTO(user);
     }
 
-    public boolean existsById(Long id) {
-        return userRepository.existsById(id);
-    }
-
+    @Transactional
     public void deleteUserByUsername(String username) {
         userRepository.deleteByUsername(username);
         Event event = new Event(EventType.DELETED, Instant.now(), username);
         kafkaTemplate.send("user-event", event);
     }
+
+    public boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
+
 }

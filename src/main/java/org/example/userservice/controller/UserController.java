@@ -53,9 +53,4 @@ public class UserController {
         return userService.existsById(id);
     }
 
-    @PostMapping("/publish")
-    public String publish(@RequestParam String message) {
-        kafkaTemplate.send("test-topic", message);
-        return "Message: \"" + message + "\" -- send to topic: test-topic";
-    }
 }
