@@ -21,12 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-    private final KafkaTemplate<String, Event> kafkaTemplate;
+    private  KafkaTemplate<String, Event> kafkaTemplate;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
